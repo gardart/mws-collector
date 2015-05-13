@@ -1,0 +1,10 @@
+production: 
+#  marketplace_id: ENV['MWS_MARKETPLACE_ID'] 
+#  merchant_id: ENV['MWS_MERCHANT_ID']
+#  aws_access_key_id: ENV['AWS_ACCESS_KEY_ID']
+#  aws_secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
+  marketplace_id: 'ATVPDKIKX0DER'
+  merchant_id: 'A3QJ9N6Z1FZUB6'
+  aws_access_key_id: 'AKIAJJ7FRKSHDBTB2N6A'
+  aws_secret_access_key: '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'
+
