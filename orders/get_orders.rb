@@ -16,38 +16,32 @@ logger = Logger.new "/var/log/collector/amazon_orders.log"
 logger.progname = 'amazon_get_orders'
 
 orders = client_orders.list_orders(created_after: 1.day.ago.end_of_day).parse
-#order_list = orders.parse["Orders"]
 
 order_ids=orders["Orders"]["Order"].map{|x| x["AmazonOrderId"]}
-
+puts "Amazon order ids created after #{1.day.ago.end_of_day}"
 orders["Orders"]["Order"].each do |order|
 		@amazonorderid 	= order["AmazonOrderId"]
 		@purchasedate 	= order["PurchaseDate"]
-		puts @amazonorderid
+		puts "#{@amazonorderid};#{@purchasedate}"
 end
 
-#order_ids.each do |x|
-#	orderitems =  client_orders.list_order_items(x).parse
-#	orderitems["OrderItems"]["OrderItem"].map{|item|
-#		puts item["QuantityOrdered"]
-#		puts item["SellerSKU"]
-#	}
-#end
-puts "ssssssss"
+puts "Order Items:"
+puts ""
 
 order_ids.each do |x|
         orderitems =  client_orders.list_order_items(x).parse
-	if orderitems.size>1
-		for order in orderitems["OrderItems"]["OrderItem"]
-			puts " #{order['SellerSKU']} :"
+	if (orderitems["OrderItems"]["OrderItem"][0] != nil)
+		orderitems["OrderItems"]["OrderItem"].each do |order|
+			puts "#{order['SellerSKU']};#{order['QuantityOrdered']}"
+			
         	end
 	else
-	puts "aaa"
+	order = orderitems["OrderItems"]["OrderItem"]
+	puts "#{order['SellerSKU']};#{order['QuantityOrdered']}"
 	end
 end
 
 hashes = [{'a' => 'aaaa', 'b' => 'bbbb'}]
-#hashes = orders.parse["Orders"]
 
 column_names = hashes.first.keys
 s=CSV.generate do |csv|
