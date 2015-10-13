@@ -1,0 +1,36 @@
+us:
+        mws: 
+                marketplace_id: 'ATVPDKIKX0DER'
+                merchant_id: 'A3QJ9N6Z1FZUB6'
+                aws_access_key_id: 'AKIAJJ7FRKSHDBTB2N6A'
+                aws_secret_access_key: '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'
+        options:
+                path_to_reports: '/opt/amazon/reports/us/daily/'
+
+uk:
+        mws:
+                marketplace_id: 'A1F83G8C2ARO7P'
+                merchant_id: 'A1CKNVAO2DAR5V'
+                aws_access_key_id: 'AKIAI5OE5MKOWZC3K7IA'
+                aws_secret_access_key: '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'
+        options:
+                path_to_reports: '/opt/amazon/reports/uk/daily/'
+         
+ca:
+        mws:
+                marketplace_id: 'A2EUQ1WTGCTBG2'
+                merchant_id: 'A1TNKOMI5XUNNV'
+                aws_access_key_id: 'AKIAINF23LJBCM332TCA'
+                aws_secret_access_key: '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'
+        options:
+                path_to_reports: '/opt/amazon/reports/ca/daily/'
+
+jp:
+        mws:
+                marketplace_id: 'A1VC38T7YXB528'
+                merchant_id: 'A2Z1ZET8RC42CY'
+                aws_access_key_id: 'AKIAJXAPEIAXLW2U24QA'
+                aws_secret_access_key: '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'
+        options:
+                path_to_reports: '/opt/amazon/reports/jp/daily/'
+
