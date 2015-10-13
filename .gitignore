@@ -2,6 +2,9 @@
 config/mws.yml
 config/config.yml
 
+config.yml
+mws.yml
+
 *.gem
 *.rbc
 /.config
