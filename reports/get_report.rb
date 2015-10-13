@@ -5,7 +5,7 @@ require 'peddler'
 require 'logger'
 require 'yaml'
 
-config = YAML.load_file( '/opt/scripts/amazon/config/mws.yml' )
+config = YAML.load_file( File.dirname(__FILE__) + "/../config/mws.yml") )
 
 client_orders = MWS.orders(config[ARGV[0]])
 client_reports = MWS.reports(config[ARGV[0]])

@@ -8,23 +8,46 @@ require 'date'
 require 'net/smtp'
 require 'mail'
 require 'fileutils'
+require 'optparse'
 
-config_raw = File.read("/opt/scripts/amazon" + "/config/config.yml")
-config_mws = YAML.load(config_raw)[ARGV[0]]['mws']
-config_options = YAML.load(config_raw)[ARGV[0]]['options']
+#  default options
+env = "us"
+type = "_GET_AMAZON_FULFILLED_SHIPMENTS_DATA_"
+period = "daily"
+$report_path = config_options['path_to_reports']
+$email_report = FALSE
+
+# parse arguments
+file = __FILE__
+ARGV.options do |opts|
+  opts.on("-e", "--env=val", String)   { |val| env = val }
+  opts.on("-t", "--type=val", String)   { |val| type = val }
+  opts.on("-p", "--period=val", String)   { |val| period = val }
+  opts.on_tail("-h", "--help")         { exec "grep ^#/<'#{file}'|cut -c4-" }
+  opts.parse!
+end
+
+config_raw = File.read(File.dirname(__FILE__) + "/../config/config.yml")
+config_mws = YAML.load(config_raw)[env]['mws']
+config_options = YAML.load(config_raw)[env]['options']
 
 $client_orders = MWS.orders(config_mws)
 $client_reports = MWS.reports(config_mws)
-$report_path = "/opt/amazon/reports/test/20151012"
-$report_path = config_options['path_to_reports']
-puts $report_path
-$email_report = FALSE
 
 logger = Logger.new "/var/log/collector/amazon_reports.log"
 logger.progname = 'amazon_get_report'
 
 unless File.directory?($report_path)
   FileUtils.mkdir_p($report_path)
+end
+
+case period
+when "daily"
+        p_start_date = 1.day.ago.midnight
+        p_end_date = 1.day.ago.end_of_day
+when "monthly"
+        p_start_date = 1.month.ago.beginning_of_month.midnight
+        p_end_date = 1.month.ago.end_of_month.end_of_day
 end
 
 def get_report(reporttype,reportid,startdate,enddate)

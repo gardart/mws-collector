@@ -31,7 +31,7 @@ when "monthly"
         p_end_date = 1.month.ago.end_of_month.end_of_day
 end
 
-config_raw = File.read("/opt/scripts/amazon" + "/config/config.yml")
+config_raw = File.read(File.dirname(__FILE__) + "/../config/config.yml")
 config_mws = YAML.load(config_raw)[env]['mws']
 config_options = YAML.load(config_raw)[env]['options']
 

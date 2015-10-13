@@ -8,7 +8,7 @@ require 'date'
 require 'net/smtp'
 require 'mail'
 
-config = YAML.load_file( '/opt/scripts/amazon/config/mws.yml' )
+config = YAML.load_file( File.dirname(__FILE__) + "/../config/mws.yml")
 config['production']
 #puts config['production']
 
