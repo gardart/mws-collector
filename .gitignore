@@ -1,3 +1,2 @@
-/config/mws.yml
 config/mws.yml
-config/*.yml
+config/config.yml
