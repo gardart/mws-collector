@@ -1,0 +1,18 @@
+us:
+        mws: 
+                marketplace_id: 'ATVPDKIKX0DER'
+                merchant_id: ''
+                aws_access_key_id: ''
+                aws_secret_access_key: ''
+        options:
+                path_to_reports: '/opt/amazon/reports/us/daily/'
+
+uk:
+        mws:
+                marketplace_id: 'A1F83G8C2ARO7P'
+                merchant_id: ''
+                aws_access_key_id: ''
+                aws_secret_access_key: ''
+        options:
+                path_to_reports: '/opt/amazon/reports/uk/daily/'
+         
