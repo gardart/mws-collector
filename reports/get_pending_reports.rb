@@ -10,7 +10,7 @@ require 'mail'
 
 config = YAML.load_file( File.dirname(__FILE__) + "/../config/mws.yml")
 config['production']
-#puts config['production']
+puts config['production']
 
 client_orders = MWS.orders(config['production'])
 $client_reports = MWS.reports(config['production'])

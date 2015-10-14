@@ -14,8 +14,6 @@ require 'optparse'
 env = "us"
 type = "_GET_AMAZON_FULFILLED_SHIPMENTS_DATA_"
 period = "daily"
-$report_path = config_options['path_to_reports']
-$email_report = FALSE
 
 # parse arguments
 file = __FILE__
@@ -23,6 +21,7 @@ ARGV.options do |opts|
   opts.on("-e", "--env=val", String)   { |val| env = val }
   opts.on("-t", "--type=val", String)   { |val| type = val }
   opts.on("-p", "--period=val", String)   { |val| period = val }
+  opts.on() 
   opts.on_tail("-h", "--help")         { exec "grep ^#/<'#{file}'|cut -c4-" }
   opts.parse!
 end
@@ -33,6 +32,9 @@ config_options = YAML.load(config_raw)[env]['options']
 
 $client_orders = MWS.orders(config_mws)
 $client_reports = MWS.reports(config_mws)
+
+$report_path = config_options['path_to_reports']
+$email_report = FALSE
 
 logger = Logger.new "/var/log/collector/amazon_reports.log"
 logger.progname = 'amazon_get_report'
@@ -72,7 +74,7 @@ end
 #$report_type = "_GET_AMAZON_FULFILLED_SHIPMENTS_DATA_"
 #$report_type = "_GET_FLAT_FILE_ALL_ORDERS_DATA_BY_ORDER_DATE_"
 
-report_request_list = $client_reports.get_report_request_list(:report_type_list=>ARGV[1], :requested_from_date=>1.month.ago.beginning_of_month, :requested_to_date=>0.month.ago.end_of_month, :report_processing_status_list=>"_DONE_").parse
+report_request_list = $client_reports.get_report_request_list(:report_type_list=>type, :requested_from_date=>1.month.ago.beginning_of_month, :requested_to_date=>0.month.ago.end_of_month, :report_processing_status_list=>"_DONE_").parse
 
 #report_request_list = $client_reports.get_report_request_list(:report_type_list=>ARGV[1], :requested_from_date=>0.day.ago.midnight, :report_processing_status_list=>"_DONE_").parse
 
